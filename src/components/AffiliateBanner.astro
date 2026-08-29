@@ -1,0 +1,27 @@
+---
+// A8.netから提供された正式コードを属性も含めて変更せず保持する
+const affiliateBannerHtml = `<a
+  href="https://px.a8.net/svt/ejp?a8mat=4BAH9I+DKSWFM+CO4+69HA9"
+  rel="nofollow"
+>
+  <img
+    border="0"
+    width="300"
+    height="250"
+    alt=""
+    src="https://www21.a8.net/svt/bgt?aid=260829414821&wid=001&eno=01&mid=s00000001642001052000&mc=1"
+/></a>
+<img
+  border="0"
+  width="1"
+  height="1"
+  src="https://www16.a8.net/0.gif?a8mat=4BAH9I+DKSWFM+CO4+69HA9"
+  alt=""
+/>`;
+---
+
+<!-- A8.netから提供された正式な300×250広告と計測画像を一か所で管理する -->
+<aside class="affiliate-banner" aria-label="広告">
+  <p class="affiliate-label">広告</p>
+  <Fragment set:html={affiliateBannerHtml} />
+</aside>
