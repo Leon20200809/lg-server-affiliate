@@ -1,0 +1,68 @@
+---
+import { getCollection } from "astro:content";
+import ArticleCard from "../components/ArticleCard.astro";
+import OfficialCta from "../components/OfficialCta.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+// 新しい記事から2件をTOPページへ掲載する
+const articles = (await getCollection("articles"))
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf())
+  .slice(0, 2);
+---
+
+<BaseLayout
+  title="XServer実践ノート｜WordPressだけで終わらない利用経験"
+  description="XServerでWordPress、SSH、WP-CLI、Node.js、Git、Laravelなどを扱ってきた経験を、確認方法とともに整理するサイトです。"
+>
+  <!-- 最初の画面で運営者の実利用経験とサイトの目的を伝える -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <p class="eyebrow">XSERVER × HANDS-ON EXPERIENCE</p>
+      <h1>WordPressだけではない。<br />実際に使って分かったXServer。</h1>
+      <p class="hero-lead">
+        WordPress運用からSSH、WP-CLI、PHP、Composer、Node.js、Git、CI/CD、Laravelまで。実際の作業で得た知見を、事実と確認手順に分けて届けます。
+      </p>
+      <a class="button" href="#experience">できたことを見る</a>
+    </div>
+  </section>
+
+  <!-- 広告文ではなく利用者の判断軸として選択理由を示す -->
+  <section class="section section--surface">
+    <div class="container narrow">
+      <p class="eyebrow">WHY XSERVER</p>
+      <h2>運用を続けながら、必要な技術へ一歩ずつ広げられた</h2>
+      <p>
+        サイトを置くだけでなく、SSHで中へ入り、コマンドを使い、デプロイ方法を改善する。その積み重ねを同じ環境で試せたことが、使い続けている理由のひとつです。
+      </p>
+      <p class="note">ここで扱う内容は運営者の利用経験です。現在の提供仕様は契約前にXServer公式情報をご確認ください。</p>
+    </div>
+  </section>
+
+  <!-- 実際に扱った技術領域を概要に絞って提示する -->
+  <section class="section" id="experience">
+    <div class="container">
+      <p class="eyebrow">WHAT I DID</p>
+      <h2>XServerで実際に取り組んだこと</h2>
+      <div class="grid grid--three">
+        <article class="card"><h3>WordPress運用</h3><p>サイト運用、環境差の確認、WP-CLIを使った保守を経験しました。</p></article>
+        <article class="card"><h3>サーバー作業</h3><p>SSH接続、PHP・Composer、nvmによるNode.js管理、.bashrc整備を行いました。</p></article>
+        <article class="card"><h3>開発と公開</h3><p>Git、rsync、GitHub ActionsによるデプロイやLaravelアプリ公開を試しました。</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 継続追加できる記事管理構造から最新記事を案内する -->
+  <section class="section section--surface">
+    <div class="container">
+      <div class="section-heading">
+        <div><p class="eyebrow">ARTICLES</p><h2>実体験から整理した技術記事</h2></div>
+        <a href="/articles/">記事一覧を見る</a>
+      </div>
+      <div class="grid grid--two">
+        {articles.map((article) => <ArticleCard href={`/articles/${article.id}/`} {...article.data} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section"><div class="container"><OfficialCta /></div></section>
+</BaseLayout>

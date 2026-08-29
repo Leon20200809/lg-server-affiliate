@@ -1,0 +1,20 @@
+---
+interface Props {
+  href: string;
+  title: string;
+  description: string;
+  category: string;
+  publishedAt: Date;
+}
+
+const { href, title, description, category, publishedAt } = Astro.props;
+const publishedLabel = new Intl.DateTimeFormat("ja-JP").format(publishedAt);
+---
+
+<!-- 記事の要点と詳細ページへの導線を一つのカードにまとめる -->
+<article class="card article-card">
+  <p class="eyebrow">{category}</p>
+  <h2><a href={href}>{title}</a></h2>
+  <p>{description}</p>
+  <time datetime={publishedAt.toISOString()}>{publishedLabel}</time>
+</article>
