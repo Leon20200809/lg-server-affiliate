@@ -33,6 +33,10 @@ npm run deploy:dry-run
 
 生成物は `dist/`、サイトマップは `dist/sitemap-index.xml` から確認できます。
 
+## Cloudflareへの公開
+
+Cloudflare側のビルドコマンドに `npm run build`、デプロイコマンドに `npx wrangler deploy` を設定します。生成された `dist/` がStatic Assetsとして公開されます。
+
 ## 構成
 
 ```text
