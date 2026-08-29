@@ -20,7 +20,7 @@ Copy-Item .env.example .env
 npm run dev
 ```
 
-`.env` の `SITE_URL` を実際の公開URLへ変更してください。未設定時は予約ドメイン `https://xserver-guide.example` が使われるため、本番ビルド前の設定が必須です。
+公開URLは `https://server.lazygenius.dev` です。環境ごとに変更する場合は、`.env` の `SITE_URL` で上書きできます。
 
 ## 検証
 
