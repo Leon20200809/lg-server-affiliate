@@ -28,6 +28,8 @@ p { margin-block: 0 1.2rem; }
 .narrow, .prose { max-width: var(--content); }
 .section { padding-block: clamp(4rem, 9vw, 7rem); }
 .section--surface { background: var(--color-surface); }
+.section--dark { background: #102a48; color: #fff; }
+.section--dark p:not(.eyebrow) { color: #d5e1ee; }
 .eyebrow { margin-bottom: .6rem; color: var(--color-primary); font-size: .78rem; font-weight: 800; letter-spacing: .12em; }
 
 /* 共通ヘッダーとフッターの導線を整える */
@@ -59,6 +61,13 @@ p { margin-block: 0 1.2rem; }
 .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 1rem; margin-bottom: 2rem; }
 .section-heading h2 { margin: 0; }
 .note { padding: 1rem; border-left: 4px solid var(--color-primary); background: var(--color-accent); color: var(--color-muted); }
+.step-label, .roadmap-item > p { margin-bottom: .5rem; color: var(--color-primary); font-size: .78rem; font-weight: 800; letter-spacing: .08em; }
+.value-grid { margin-top: 2rem; }
+.roadmap-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; margin-top: 2rem; border: 1px solid var(--color-border); border-radius: var(--radius); background: var(--color-border); overflow: hidden; }
+.roadmap-item { padding: 1.5rem; background: var(--color-surface); }
+.roadmap-item h3 { margin: 0; font-size: 1.05rem; }
+.fit-grid { margin-top: 2rem; }
+.fit-grid ul { padding-left: 1.25rem; }
 
 /* 実体験の文脈から正式な広告導線へ自然につなげる */
 .cta { padding: clamp(2rem, 6vw, 4rem); border-radius: calc(var(--radius) * 1.5); background: #102a48; color: #fff; text-align: center; }
@@ -81,6 +90,7 @@ p { margin-block: 0 1.2rem; }
 @media (max-width: 44rem) {
   .header-inner, .footer-inner, .section-heading { align-items: flex-start; flex-direction: column; }
   .grid--two, .grid--three { grid-template-columns: 1fr; }
+  .roadmap-grid { grid-template-columns: 1fr; }
   .hero br { display: none; }
   .hero h1 { font-size: 2rem; word-break: break-word; }
   .hero-lead, .page-hero h1, .page-hero p { word-break: break-word; }

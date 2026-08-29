@@ -11,51 +11,84 @@ const articles = (await getCollection("articles"))
 ---
 
 <BaseLayout
-  title="XServer実践ノート｜WordPressだけで終わらない利用経験"
-  description="XServerでWordPress、SSH、WP-CLI、Node.js、Git、Laravelなどを扱ってきた経験を、確認方法とともに整理するサイトです。"
+  title="ローカルから本番へ｜XServer実践ノート"
+  description="ローカルで作ったWordPressやWebアプリを本番で動かし、公開・改善・自動化へ進むためのXServer実践記録です。"
 >
-  <!-- 最初の画面で運営者の実利用経験とサイトの目的を伝える -->
+  <!-- 最初の画面でローカルから本番へ進みたい読者を明確にする -->
   <section class="hero">
     <div class="container hero-inner">
-      <p class="eyebrow">XSERVER × HANDS-ON EXPERIENCE</p>
-      <h1>WordPressだけではない。<br />実際に使って分かったXServer。</h1>
+      <p class="eyebrow">FROM LOCAL TO PRODUCTION</p>
+      <h1>ローカルでは作れる。<br />次は、本番で動かせる人へ。</h1>
       <p class="hero-lead">
-        WordPress運用からSSH、WP-CLI、PHP、Composer、Node.js、Git、CI/CD、Laravelまで。実際の作業で得た知見を、事実と確認手順に分けて届けます。
+        案件で初めて本番環境を触る前に、自分のサーバーで失敗し、直し、慣れておく。私はWordPressやPHPの実践環境としてXServerを使ってきました。
       </p>
-      <a class="button" href="#experience">できたことを見る</a>
+      <a class="button" href="#production-value">本番環境を持つ意味を見る</a>
     </div>
   </section>
 
-  <!-- 広告文ではなく利用者の判断軸として選択理由を示す -->
+  <!-- ローカルでは見えにくい本番固有の課題を整理する -->
   <section class="section section--surface">
     <div class="container narrow">
-      <p class="eyebrow">WHY XSERVER</p>
-      <h2>運用を続けながら、必要な技術へ一歩ずつ広げられた</h2>
-      <p>
-        サイトを置くだけでなく、SSHで中へ入り、コマンドを使い、デプロイ方法を改善する。その積み重ねを同じ環境で試せたことが、使い続けている理由のひとつです。
-      </p>
-      <p class="note">ここで扱う内容は運営者の利用経験です。現在の提供仕様は契約前にXServer公式情報をご確認ください。</p>
+      <p class="eyebrow">LOCAL ≠ PRODUCTION</p>
+      <h2>動いたコードも、本番では別の問題に出会う</h2>
+      <p>WordPressやPHPをローカルで動かせても、公開先ではPHPバージョン、PATH、ファイル権限、SSH、サーバーディレクトリ、デプロイ方法などを確認する必要があります。</p>
+      <p class="note">本番環境への抵抗を減らす近道は、自分で確認し、失敗から戻す経験を小さく積むことです。</p>
     </div>
   </section>
 
-  <!-- 実際に扱った技術領域を概要に絞って提示する -->
-  <section class="section" id="experience">
+  <!-- 作ったものを公開して運用へ進める価値を示す -->
+  <section class="section" id="production-value">
     <div class="container">
-      <p class="eyebrow">WHAT I DID</p>
-      <h2>XServerで実際に取り組んだこと</h2>
-      <div class="grid grid--three">
-        <article class="card"><h3>WordPress運用</h3><p>サイト運用、環境差の確認、WP-CLIを使った保守を経験しました。</p></article>
-        <article class="card"><h3>サーバー作業</h3><p>SSH接続、PHP・Composer、nvmによるNode.js管理、.bashrc整備を行いました。</p></article>
-        <article class="card"><h3>開発と公開</h3><p>Git、rsync、GitHub ActionsによるデプロイやLaravelアプリ公開を試しました。</p></article>
+      <p class="eyebrow">VALUE</p>
+      <h2>作ったものを「自分のPCの中」で終わらせない。</h2>
+      <div class="grid grid--three value-grid">
+        <article class="card"><p class="step-label">01 / 公開する</p><h3>現実のURLで動かす</h3><p>WordPressサイト、PHPプログラム、Webアプリをインターネット上へ出し、自分以外の人がアクセスできる状態にします。</p></article>
+        <article class="card"><p class="step-label">02 / 本番を知る</p><h3>環境差を自分で確認する</h3><p>権限、PATH、PHP、Composer、Node.jsなど、ローカルだけでは見えにくい違いを自分の環境で経験します。</p></article>
+        <article class="card"><p class="step-label">03 / 改善する</p><h3>安全に速く反映する</h3><p>GitやCI/CDを使い、手作業によるミスを減らしながら、修正を継続して届ける運用へ進みます。</p></article>
       </div>
     </div>
   </section>
 
-  <!-- 継続追加できる記事管理構造から最新記事を案内する -->
+  <!-- 自分の環境で先に失敗できることの意味を伝える -->
+  <section class="section section--dark">
+    <div class="container narrow">
+      <p class="eyebrow">WHY OWN SERVER</p>
+      <h2>案件で初めて触る前に、自分の本番環境で試しておく</h2>
+      <p>SSH接続、ログ確認、設定変更、デプロイ。自分で戻せる環境なら、分からないことを調べ、失敗し、修正するところまで経験できます。その積み重ねが、本番環境そのものへの心理的・技術的な抵抗を減らします。</p>
+    </div>
+  </section>
+
+  <!-- 広告文ではなく利用実績をXServer紹介の根拠として示す -->
+  <section class="section section--surface">
+    <div class="container narrow">
+      <p class="eyebrow">WHY XSERVER</p>
+      <h2>実際に使い、説明できる実践環境だから紹介する</h2>
+      <p>WordPress運用だけでなく、SSH、WP-CLI、PHP、Composer、Node.js、Git、rsync、GitHub Actions、Laravel公開まで試してきました。XServerを唯一の正解とは考えず、自分の経験を根拠に紹介します。</p>
+      <p class="note">料金・仕様・利用可能な機能は変わる場合があります。契約前には必ずXServer公式情報をご確認ください。</p>
+    </div>
+  </section>
+
+  <!-- 本番環境へ慣れていく順番として利用経験を提示する -->
+  <section class="section" id="roadmap">
+    <div class="container">
+      <p class="eyebrow">ROADMAP</p>
+      <h2>XServerで経験した、本番へ進む6つのステップ</h2>
+      <div class="roadmap-grid">
+        <article class="roadmap-item"><p>STEP 1</p><h3>WordPressを本番へ公開する</h3></article>
+        <article class="roadmap-item"><p>STEP 2</p><h3>SSH / WP-CLIを使う</h3></article>
+        <article class="roadmap-item"><p>STEP 3</p><h3>PHP / Composer / Node.jsを整える</h3></article>
+        <article class="roadmap-item"><p>STEP 4</p><h3>Git / rsyncで反映する</h3></article>
+        <article class="roadmap-item"><p>STEP 5</p><h3>CI/CDで変更を自動反映する</h3></article>
+        <article class="roadmap-item"><p>STEP 6</p><h3>要件に合うWebアプリを動かす</h3></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 実体験から得た個別の確認方法へ案内する -->
   <section class="section section--surface">
     <div class="container">
       <div class="section-heading">
-        <div><p class="eyebrow">ARTICLES</p><h2>実体験から整理した技術記事</h2></div>
+        <div><p class="eyebrow">ARTICLES</p><h2>本番で困ったことから整理した記事</h2></div>
         <a href="/articles/">記事一覧を見る</a>
       </div>
       <div class="grid grid--two">
@@ -64,5 +97,18 @@ const articles = (await getCollection("articles"))
     </div>
   </section>
 
-  <section class="section"><div class="container"><OfficialCta /></div></section>
+  <!-- 適合する読者と共有サーバーが向かない要件を隠さず示す -->
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">FIT</p>
+      <h2>自分の本番環境で、小さく実践したい人へ</h2>
+      <div class="grid grid--two fit-grid">
+        <article class="card"><h3>向いている人</h3><ul><li>ローカルの次に公開を経験したい</li><li>WordPress運用からSSHやGitへ進みたい</li><li>自分の環境で失敗と復旧を経験したい</li></ul></article>
+        <article class="card"><h3>別の選択肢も検討したい要件</h3><ul><li>root権限やOSレベルの設定が必要</li><li>常時起動する特殊なプロセスが必要</li><li>共有レンタルサーバーの制約と合わない</li></ul><p>用途によってVPSやクラウド等が適する場合もあります。</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 実体験と適合条件を確認した読者を正式広告へ案内する -->
+  <section class="section section--surface"><div class="container"><OfficialCta /></div></section>
 </BaseLayout>
