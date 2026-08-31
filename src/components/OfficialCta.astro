@@ -1,5 +1,6 @@
 ---
 import AffiliateTextLink from "./AffiliateTextLink.astro";
+import AffiliateBanner from "./AffiliateBanner.astro";
 
 interface Props {
   compact?: boolean;
@@ -10,8 +11,11 @@ const { compact = false } = Astro.props;
 
 <!-- 実体験を読んだ後に正式な広告リンクから公式情報を確認できるよう案内する -->
 <aside class:list={["cta", { "cta--compact": compact }]} aria-labelledby="cta-title">
-  <p class="eyebrow">NEXT STEP</p>
-  <h2 id="cta-title">XServerの公式情報を確認する</h2>
-  <p>料金・仕様・キャンペーンは変わる可能性があります。契約前には必ず公式サイトで最新情報をご確認ください。</p>
-  <AffiliateTextLink />
+  <div class="cta-copy">
+    <p class="eyebrow eyebrow--light">09 / READY FOR PRODUCTION?</p>
+    <h2 id="cta-title">まずは、自分の公開環境を持つ。</h2>
+    <p>学んだことを本番で試せる場所が、次の成長をつくる。料金・仕様は公式サイトで最新情報をご確認ください。</p>
+    <AffiliateTextLink />
+  </div>
+  <AffiliateBanner />
 </aside>

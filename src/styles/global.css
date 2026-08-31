@@ -97,3 +97,122 @@ p { margin-block: 0 1.2rem; }
 }
 
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+/* 承認済みFigmaのProduction Field NotesをTOPページへ再現する */
+:root {
+  --color-bg: #f3f7f9;
+  --color-text: #0a1f33;
+  --color-muted: #5c6d7e;
+  --color-border: #d7e1e8;
+  --color-primary: #1477e8;
+  --color-primary-dark: #0b253c;
+  --color-accent: #eaf4ff;
+  --color-navy: #071829;
+  --color-navy-2: #0b253c;
+  --color-cyan: #5dd9ff;
+  --container: 75rem;
+  --radius: .75rem;
+  --shadow: 0 20px 50px rgb(7 24 41 / .08);
+}
+
+.section { padding-block: clamp(6rem, 10vw, 9rem); }
+.section--canvas { background: var(--color-bg); }
+.section--dark { background: var(--color-navy); }
+.section--cta { padding-block: clamp(7rem, 12vw, 11rem); background: var(--color-navy); }
+.section-intro { max-width: 58rem; }
+.section-intro > h2 { margin: 1.25rem 0 1.75rem; }
+.section-intro > p:not(.eyebrow) { color: var(--color-muted); font-size: 1.05rem; }
+.eyebrow { margin-bottom: 1.25rem; color: var(--color-primary); font-size: clamp(.875rem, 1.2vw, 1rem); font-weight: 800; letter-spacing: .14em; line-height: 1.5; }
+.eyebrow--light { color: var(--color-cyan); }
+
+/* Heroで本番環境へ進む緊張感と視線の流れを作る */
+.hero { padding-block: clamp(8rem, 13vw, 12rem); background: var(--color-navy); color: #fff; }
+.hero-layout { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(24rem, .9fr); align-items: center; gap: clamp(4rem, 8vw, 7rem); }
+.hero-copy { min-width: 0; }
+.hero .eyebrow { display: flex; align-items: center; gap: .75rem; }
+.hero .eyebrow span { width: .6rem; height: .6rem; border-radius: 50%; background: var(--color-cyan); box-shadow: 0 0 1.25rem rgb(93 217 255 / .7); }
+.hero h1 { margin: 1.75rem 0 2rem; font-size: clamp(2.5rem, 3.35vw, 3rem); line-height: 1.4; letter-spacing: -.045em; }
+.hero-lead { max-width: 43rem; color: #b0c2d2; font-size: clamp(1.05rem, 1.6vw, 1.25rem); line-height: 2; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: .75rem 2rem; margin-top: 2.75rem; color: #8fa6b9; font-size: .72rem; font-weight: 800; letter-spacing: .12em; }
+.deployment-panel { padding: 2rem; border: 1px solid #29465d; border-radius: 1rem; background: var(--color-navy-2); }
+.deployment-status { display: flex; justify-content: space-between; gap: 1rem; margin-bottom: 1.5rem; color: var(--color-cyan); font-size: .7rem; font-weight: 800; letter-spacing: .08em; }
+.deployment-status strong { color: #7ae6a4; }
+.deployment-panel ol { display: grid; gap: 1rem; margin: 0; padding: 0; list-style: none; }
+.deployment-panel li { display: flex; justify-content: space-between; gap: 1rem; padding: .9rem 1rem; border-radius: .5rem; background: #091f34; color: #adbfce; font-size: .78rem; font-weight: 700; }
+.deployment-panel li strong { color: #7ae6a4; }
+.deployment-panel li.is-current { background: #105495; color: #fff; }
+.deployment-panel li.is-current strong { color: var(--color-cyan); }
+
+/* 引用と連続フローで本番固有の課題と価値を可視化する */
+.field-note { margin: 3.5rem 0 0; padding: 2rem 2.25rem; border: 1px solid var(--color-border); border-left: 4px solid var(--color-primary); border-radius: .5rem; background: #fff; color: var(--color-text); font-size: clamp(1.15rem, 2vw, 1.5rem); font-weight: 700; }
+.value-flow { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); margin: 4rem 0 0; padding: 0; border: 1px solid var(--color-border); list-style: none; }
+.value-flow li { position: relative; min-height: 13rem; padding: 1.75rem 1.5rem; border-right: 1px solid var(--color-border); background: var(--color-bg); }
+.value-flow li:last-child { border-right: 0; }
+.value-flow li.is-current { background: var(--color-navy-2); color: #fff; }
+.value-flow span { color: var(--color-primary); font-size: .75rem; font-weight: 800; }
+.value-flow .is-current span, .value-flow .is-current b { color: var(--color-cyan); }
+.value-flow h3 { margin: 1.25rem 0 .75rem; font-size: 1.25rem; }
+.value-flow p { color: var(--color-muted); font-size: .7rem; font-weight: 700; letter-spacing: .08em; }
+.value-flow .is-current p { color: #b0c2d2; }
+.value-flow b { position: absolute; right: 1.5rem; bottom: 1.35rem; color: var(--color-primary); }
+
+/* 暗色カードと理由一覧で実践経験の根拠を整理する */
+.field-cards { margin-top: 4rem; }
+.field-cards article { padding: 2rem; border: 1px solid #29465d; border-radius: var(--radius); background: var(--color-navy-2); }
+.field-cards p { color: var(--color-cyan); font-size: .75rem; font-weight: 800; letter-spacing: .1em; }
+.field-cards h3 { margin-block: 1.25rem; color: #fff; }
+.field-cards span { color: #b0c2d2; }
+.reason-list { display: grid; margin: 3rem 0; padding: 0; border-top: 1px solid var(--color-border); list-style: none; }
+.reason-list li { display: flex; gap: 1.5rem; padding-block: 1.25rem; border-bottom: 1px solid var(--color-border); font-weight: 700; }
+.reason-list span { color: var(--color-primary); font-size: .75rem; }
+
+/* 六段階をPCでは横レール、狭い画面では縦レールとして表示する */
+.roadmap-rail { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); margin: 4rem 0 0; padding: 0; background: var(--color-bg); list-style: none; }
+.roadmap-rail li { position: relative; min-height: 14rem; padding: 2rem 1.15rem; }
+.roadmap-rail li::before { position: absolute; top: 2.42rem; left: 0; width: 100%; height: 1px; background: var(--color-border); content: ""; }
+.roadmap-rail i { position: relative; z-index: 1; display: block; width: 1rem; height: 1rem; margin-bottom: 1.25rem; border: 3px solid var(--color-bg); border-radius: 50%; background: var(--color-primary); }
+.roadmap-rail .is-current { background: var(--color-navy); color: #fff; }
+.roadmap-rail .is-current i { border-color: var(--color-navy); background: var(--color-cyan); }
+.roadmap-rail span { color: var(--color-primary); font-size: .72rem; font-weight: 800; }
+.roadmap-rail .is-current span { color: var(--color-cyan); }
+.roadmap-rail h3 { margin: 1rem 0 .75rem; font-size: 1rem; }
+.roadmap-rail p { color: var(--color-muted); font-size: .8rem; line-height: 1.7; }
+.roadmap-rail .is-current p { color: #b0c2d2; }
+.article-grid, .fit-grid { margin-top: 4rem; gap: 2rem; }
+.article-grid .card, .fit-grid .card { padding: 2.25rem; border-radius: var(--radius); box-shadow: none; }
+
+/* 最終判断と正式広告を独立したCTA内へまとめる */
+.cta { display: grid; grid-template-columns: minmax(0, 1fr) minmax(18.75rem, 22rem); align-items: center; gap: clamp(3rem, 7vw, 6rem); padding: clamp(2.5rem, 5vw, 4rem); border: 1px solid #29465d; border-radius: 1rem; background: var(--color-navy-2); text-align: left; }
+.cta-copy h2 { margin: 1rem 0 1.5rem; font-size: clamp(1.8rem, 3vw, 2.5rem); }
+.cta p:not(.eyebrow) { margin-inline: 0; }
+.cta .affiliate-text { align-items: flex-start; }
+.cta .affiliate-text a { width: auto; border-radius: .5rem; background: var(--color-primary); color: #fff; }
+.cta .affiliate-banner { width: 100%; margin: 0; border-color: #496176; background: #091f34; }
+
+@media (max-width: 62rem) {
+  .hero-layout, .cta { grid-template-columns: 1fr; }
+  .deployment-panel { max-width: 36rem; }
+  .value-flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .value-flow li { border-bottom: 1px solid var(--color-border); }
+  .roadmap-rail { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 44rem) {
+  .section { padding-block: 5.5rem; }
+  .hero { padding-block: 6.5rem; }
+  .hero-layout { grid-template-columns: minmax(0, 1fr); }
+  .hero h1 { font-size: clamp(2.15rem, 10vw, 2.6rem); overflow-wrap: anywhere; }
+  .hero br { display: initial; }
+  .hero-lead { max-width: 100%; overflow-wrap: anywhere; }
+  .hero-meta { display: grid; }
+  .deployment-panel { min-width: 0; padding: 1.25rem; overflow: hidden; }
+  .deployment-status { flex-wrap: wrap; font-size: .62rem; }
+  .deployment-panel li { font-size: .68rem; }
+  .value-flow { grid-template-columns: 1fr; }
+  .value-flow li { min-height: 10rem; border-right: 0; }
+  .roadmap-rail { grid-template-columns: 1fr; }
+  .roadmap-rail li { min-height: auto; padding: 1.5rem 1.5rem 1.5rem 3.75rem; border-left: 1px solid var(--color-border); }
+  .roadmap-rail li::before { top: 0; left: 1.48rem; width: 1px; height: 100%; }
+  .roadmap-rail i { position: absolute; top: 1.7rem; left: 1rem; }
+  .cta { padding: 1.5rem; }
+}

@@ -5,110 +5,43 @@ import OfficialCta from "../components/OfficialCta.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 // 新しい記事から2件をTOPページへ掲載する
-const articles = (await getCollection("articles"))
-  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf())
-  .slice(0, 2);
+const articles = (await getCollection("articles")).sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf()).slice(0, 2);
+
+// 制作から運用までの価値を連続フローとして定義する
+const valueSteps = [["01", "つくる", "HTML / CSS / JS"], ["02", "公開する", "SERVER / DOMAIN"], ["03", "守る", "SSL / BACKUP"], ["04", "改善する", "LOG / ANALYTICS"], ["05", "自動化する", "BUILD / DEPLOY"]] as const;
+
+// 本番へ進む六段階をロードマップとして定義する
+const roadmapSteps = [["01", "初回公開", "WordPressを本番へ公開する"], ["02", "SSH / WP-CLI", "サーバーをコマンドで扱う"], ["03", "実行環境", "PHP / Composer / Node.jsを整える"], ["04", "反映", "Git / rsyncで安全に届ける"], ["05", "自動化", "CI/CDで変更を自動反映する"], ["06", "Webアプリ", "要件に合う構成を動かす"]] as const;
 ---
 
-<BaseLayout
-  title="ローカルから本番へ｜XServer実践ノート"
-  description="ローカルで作ったWordPressやWebアプリを本番で動かし、公開・改善・自動化へ進むためのXServer実践記録です。"
->
-  <!-- 最初の画面でローカルから本番へ進みたい読者を明確にする -->
-  <section class="hero">
-    <div class="container hero-inner">
-      <p class="eyebrow">FROM LOCAL TO PRODUCTION</p>
-      <h1>ローカルでは作れる。<br />次は、本番で動かせる人へ。</h1>
-      <p class="hero-lead">
-        案件で初めて本番環境を触る前に、自分のサーバーで失敗し、直し、慣れておく。私はWordPressやPHPの実践環境としてXServerを使ってきました。
-      </p>
-      <a class="button" href="#production-value">本番環境を持つ意味を見る</a>
-    </div>
-  </section>
+<BaseLayout title="ローカルから本番へ｜XServer実践ノート" description="ローカルで作ったWordPressやWebアプリを本番で動かし、公開・改善・自動化へ進むためのXServer実践記録です。">
+  <!-- ローカルから本番へ進むサイトの価値を最初の画面で伝える -->
+  <section class="hero"><div class="container hero-layout">
+    <div class="hero-copy"><p class="eyebrow eyebrow--light"><span aria-hidden="true"></span>PRODUCTION FIELD NOTES / 001</p><h1>ローカルでは作れる。<br />次は、本番で動かせる人へ。</h1><p class="hero-lead">サーバーに置き、公開し、守り、改善する。制作物を「動く成果」へ変えるための実践ロードマップ。</p><p class="hero-meta">LOCAL → DEPLOY <span>OPERATE → IMPROVE</span> AUTOMATE</p></div>
+    <div class="deployment-panel" aria-label="公開から改善までの進行イメージ"><div class="deployment-status"><span>DEPLOYMENT SYSTEM</span><strong>STATUS READY</strong></div><ol><li><span>01 LOCAL / BUILD</span><strong>✓</strong></li><li class="is-current"><span>02 SERVER / DEPLOY</span><strong>LIVE</strong></li><li><span>03 DOMAIN / ROUTE</span><strong>✓</strong></li><li><span>04 SSL / SECURE</span><strong>✓</strong></li><li><span>05 LOGS / IMPROVE</span><strong>✓</strong></li></ol></div>
+  </div></section>
 
-  <!-- ローカルでは見えにくい本番固有の課題を整理する -->
-  <section class="section section--surface">
-    <div class="container narrow">
-      <p class="eyebrow">LOCAL ≠ PRODUCTION</p>
-      <h2>動いたコードも、本番では別の問題に出会う</h2>
-      <p>WordPressやPHPをローカルで動かせても、公開先ではPHPバージョン、PATH、ファイル権限、SSH、サーバーディレクトリ、デプロイ方法などを確認する必要があります。</p>
-      <p class="note">本番環境への抵抗を減らす近道は、自分で確認し、失敗から戻す経験を小さく積むことです。</p>
-    </div>
-  </section>
+  <!-- ローカルだけでは見えない本番固有の課題を整理する -->
+  <section class="section section--canvas"><div class="container section-intro"><p class="eyebrow">02 / THE GAP</p><h2>公開後に必要なことは、ローカルの外にある。</h2><p>公開・運用・保守まで見通せて、はじめて制作物は成果になる。</p><blockquote class="field-note">動いたコードも、本番ではPHP、PATH、権限、SSH、ドメイン、デプロイ方法など、別の問題に出会う。</blockquote></div></section>
 
-  <!-- 作ったものを公開して運用へ進める価値を示す -->
-  <section class="section" id="production-value">
-    <div class="container">
-      <p class="eyebrow">VALUE</p>
-      <h2>作ったものを「自分のPCの中」で終わらせない。</h2>
-      <div class="grid grid--three value-grid">
-        <article class="card"><p class="step-label">01 / 公開する</p><h3>現実のURLで動かす</h3><p>WordPressサイト、PHPプログラム、Webアプリをインターネット上へ出し、自分以外の人がアクセスできる状態にします。</p></article>
-        <article class="card"><p class="step-label">02 / 本番を知る</p><h3>環境差を自分で確認する</h3><p>権限、PATH、PHP、Composer、Node.jsなど、ローカルだけでは見えにくい違いを自分の環境で経験します。</p></article>
-        <article class="card"><p class="step-label">03 / 改善する</p><h3>安全に速く反映する</h3><p>GitやCI/CDを使い、手作業によるミスを減らしながら、修正を継続して届ける運用へ進みます。</p></article>
-      </div>
-    </div>
-  </section>
+  <!-- 制作から運用までを連続した実務の流れとして示す -->
+  <section class="section" id="production-value"><div class="container"><div class="section-intro"><p class="eyebrow">03 / VALUE</p><h2>作ったものを「自分のPCの中」で終わらせない。</h2><p>制作から運用までを、ひとつの流れでつなぐ。</p></div><ol class="value-flow">{valueSteps.map(([number, title, detail], index) => <li class:list={{ "is-current": index === 1 }}><span>{number}</span><h3>{title}</h3><p>{detail}</p><b aria-hidden="true">→</b></li>)}</ol></div></section>
 
-  <!-- 自分の環境で先に失敗できることの意味を伝える -->
-  <section class="section section--dark">
-    <div class="container narrow">
-      <p class="eyebrow">WHY OWN SERVER</p>
-      <h2>案件で初めて触る前に、自分の本番環境で試しておく</h2>
-      <p>SSH接続、ログ確認、設定変更、デプロイ。自分で戻せる環境なら、分からないことを調べ、失敗し、修正するところまで経験できます。その積み重ねが、本番環境そのものへの心理的・技術的な抵抗を減らします。</p>
-    </div>
-  </section>
+  <!-- 自分の本番環境で試す価値を三つの実務観点で示す -->
+  <section class="section section--dark"><div class="container"><div class="section-intro"><p class="eyebrow eyebrow--light">04 / OWN SERVER</p><h2>なぜ、自分のサーバーを持つのか。</h2></div><div class="grid grid--three field-cards"><article><p>01 / CONTROL</p><h3>公開環境を自分で扱う</h3><span>ファイル、ドメイン、SSL、PHP。制作の外側にある条件を理解する。</span></article><article><p>02 / EVIDENCE</p><h3>動作を証拠で確認する</h3><span>ログ、ステータス、更新履歴。推測ではなく事実から改善する。</span></article><article><p>03 / CONTINUITY</p><h3>運用を継続できる形にする</h3><span>バックアップ、更新、復旧。公開した後も壊さず育てる。</span></article></div></div></section>
 
-  <!-- 広告文ではなく利用実績をXServer紹介の根拠として示す -->
-  <section class="section section--surface">
-    <div class="container narrow">
-      <p class="eyebrow">WHY XSERVER</p>
-      <h2>実際に使い、説明できる実践環境だから紹介する</h2>
-      <p>WordPress運用だけでなく、SSH、WP-CLI、PHP、Composer、Node.js、Git、rsync、GitHub Actions、Laravel公開まで試してきました。XServerを唯一の正解とは考えず、自分の経験を根拠に紹介します。</p>
-      <p class="note">料金・仕様・利用可能な機能は変わる場合があります。契約前には必ずXServer公式情報をご確認ください。</p>
-    </div>
-  </section>
+  <!-- 利用実績をXServer紹介の根拠として明示する -->
+  <section class="section section--canvas"><div class="container section-intro"><p class="eyebrow">05 / WHY XSERVER</p><h2>学習と実運用の距離を、短くする選択。</h2><p>WordPressだけでなく、SSH、WP-CLI、PHP、Composer、Node.js、Git、rsync、CI/CD、Laravel公開まで試してきた実践環境として紹介します。</p><ul class="reason-list"><li><span>01</span>WordPress・PHPの実運用へ接続しやすい</li><li><span>02</span>ドメイン、SSL、バックアップを同じ環境で扱える</li><li><span>03</span>公開後の保守改善まで学習範囲を広げられる</li></ul><p class="note">料金・仕様・利用可能な機能は変わる場合があります。契約前には必ずXServer公式情報をご確認ください。</p></div></section>
 
-  <!-- 本番環境へ慣れていく順番として利用経験を提示する -->
-  <section class="section" id="roadmap">
-    <div class="container">
-      <p class="eyebrow">ROADMAP</p>
-      <h2>XServerで経験した、本番へ進む6つのステップ</h2>
-      <div class="roadmap-grid">
-        <article class="roadmap-item"><p>STEP 1</p><h3>WordPressを本番へ公開する</h3></article>
-        <article class="roadmap-item"><p>STEP 2</p><h3>SSH / WP-CLIを使う</h3></article>
-        <article class="roadmap-item"><p>STEP 3</p><h3>PHP / Composer / Node.jsを整える</h3></article>
-        <article class="roadmap-item"><p>STEP 4</p><h3>Git / rsyncで反映する</h3></article>
-        <article class="roadmap-item"><p>STEP 5</p><h3>CI/CDで変更を自動反映する</h3></article>
-        <article class="roadmap-item"><p>STEP 6</p><h3>要件に合うWebアプリを動かす</h3></article>
-      </div>
-    </div>
-  </section>
+  <!-- 本番へ進む順序を六段階のロードマップとして示す -->
+  <section class="section" id="roadmap"><div class="container"><div class="section-intro"><p class="eyebrow">06 / ROADMAP</p><h2>本番で動かす力を、段階で積み上げる。</h2><p>現在地と次の一歩が見える、6ステップの実践ルート。</p></div><ol class="roadmap-rail">{roadmapSteps.map(([number, title, detail], index) => <li class:list={{ "is-current": index === 0 }}><i aria-hidden="true"></i><span>{number}</span><h3>{title}</h3><p>{detail}</p></li>)}</ol></div></section>
 
   <!-- 実体験から得た個別の確認方法へ案内する -->
-  <section class="section section--surface">
-    <div class="container">
-      <div class="section-heading">
-        <div><p class="eyebrow">ARTICLES</p><h2>本番で困ったことから整理した記事</h2></div>
-        <a href="/articles/">記事一覧を見る</a>
-      </div>
-      <div class="grid grid--two">
-        {articles.map((article) => <ArticleCard href={`/articles/${article.id}/`} {...article.data} />)}
-      </div>
-    </div>
-  </section>
+  <section class="section section--canvas"><div class="container"><div class="section-heading"><div><p class="eyebrow">07 / FIELD NOTES</p><h2>次の一手を、実践記事で確認する。</h2></div><a href="/articles/">記事一覧を見る →</a></div><div class="grid grid--two article-grid">{articles.map((article) => <ArticleCard href={`/articles/${article.id}/`} {...article.data} />)}</div></div></section>
 
   <!-- 適合する読者と共有サーバーが向かない要件を隠さず示す -->
-  <section class="section">
-    <div class="container">
-      <p class="eyebrow">FIT</p>
-      <h2>自分の本番環境で、小さく実践したい人へ</h2>
-      <div class="grid grid--two fit-grid">
-        <article class="card"><h3>向いている人</h3><ul><li>ローカルの次に公開を経験したい</li><li>WordPress運用からSSHやGitへ進みたい</li><li>自分の環境で失敗と復旧を経験したい</li></ul></article>
-        <article class="card"><h3>別の選択肢も検討したい要件</h3><ul><li>root権限やOSレベルの設定が必要</li><li>常時起動する特殊なプロセスが必要</li><li>共有レンタルサーバーの制約と合わない</li></ul><p>用途によってVPSやクラウド等が適する場合もあります。</p></article>
-      </div>
-    </div>
-  </section>
+  <section class="section"><div class="container"><div class="section-intro"><p class="eyebrow">08 / FIT</p><h2>自分の本番環境で、小さく実践したい人へ。</h2></div><div class="grid grid--two fit-grid"><article class="card"><p class="step-label">GOOD FIT</p><h3>向いている人</h3><ul><li>ローカルの次に公開を経験したい</li><li>WordPress運用からSSHやGitへ進みたい</li><li>自分の環境で失敗と復旧を経験したい</li></ul></article><article class="card"><p class="step-label">OTHER OPTIONS</p><h3>別の選択肢も検討したい要件</h3><ul><li>root権限やOSレベルの設定が必要</li><li>常時起動する特殊なプロセスが必要</li><li>共有レンタルサーバーの制約と合わない</li></ul><p>用途によってVPSやクラウド等が適する場合もあります。</p></article></div></div></section>
 
-  <!-- 実体験と適合条件を確認した読者を正式広告へ案内する -->
-  <section class="section section--surface"><div class="container"><OfficialCta /></div></section>
+  <!-- 判断材料を確認した読者を正式な広告導線へ案内する -->
+  <section class="section section--cta"><div class="container"><OfficialCta /></div></section>
 </BaseLayout>
